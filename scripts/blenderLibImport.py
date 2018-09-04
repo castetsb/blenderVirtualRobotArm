@@ -27,7 +27,7 @@
 #print(numpy.__file__)
 
 #Put external library path in the following property
-EXTLIBPATH="/home/bcastets/anaconda3/envs/blenderVision/lib/python3.5/site-packages"
+EXTLIBPATH="/home/bcastets/anaconda3/envs/blenderVision/lib/python3.6/site-packages"
 
 #############################################################
 #LIBRARIES
@@ -47,7 +47,7 @@ import numpy as np
 import scipy
 
 #ndimage: tools for image processing
-import scipy.ndimage as ndimage
+#import scipy.ndimage as ndimage
 
 #imageio: tools for image file read and write
 import imageio

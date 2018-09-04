@@ -22,10 +22,15 @@ import geoTools as gt
 #CLASS
 #############################################################
 class Tool():
-    """
+    """This class define what is tool. A tool is a physical
+    or non physical object which provide functionnalities to
+    a robot.
+
+    This class is under construction and may be used in
+    a futur version.
     """
     def __init__(self,name,blenderModelPath=None):
-        """Create a tool object wich can be fixed on a virutal
+        """Create a tool object wich can be fixed on a virtual
         robot arm.
 
         Parameters
@@ -38,7 +43,12 @@ class Tool():
         """
         self.name=name
         self.blenderModel=blenderModel
-    def mountOn(self,robot):
+    def mountOn(self,flange):
         """Fix the tool on a robot
+
+        Parameters:
+        ***********
+        flange:
+            3D object on which is fied/parented the tool.
         """
         pass

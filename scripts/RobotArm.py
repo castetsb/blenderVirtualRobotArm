@@ -314,7 +314,7 @@ class RobotArm():
         """
         #Interruptions:
         if False:#camSensor.redDetected(5)
-            #self.
+            #
             pass
         #If no interruption
         else:
