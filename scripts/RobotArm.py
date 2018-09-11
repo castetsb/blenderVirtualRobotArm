@@ -272,7 +272,7 @@ class RobotArm():
             #Load next vector
             self.bufferInterTrajectory=self.bufferTrajectory.linearInterpolation(self.speed,self.bufferVectorId)
     def tcpPlacementFromBuffer(self):
-        """Placement the tcp to the first placement in interpolation
+        """Place the tcp to the first placement in interpolation
         trajectory buffer
         """
         if self.bufferInterTrajectory.length()>0:
@@ -312,13 +312,7 @@ class RobotArm():
         """If the robot is not frozen and if it did not reach its final position,
         this function update robot position toward its final position.
         """
-        #Interruptions:
-        if False:#camSensor.redDetected(5)
-            #
-            pass
-        #If no interruption
-        else:
-            self.followRoutineTrajectory()
+        self.followRoutineTrajectory()
 
 #Test placement
 if False:

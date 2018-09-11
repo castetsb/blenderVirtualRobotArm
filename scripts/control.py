@@ -36,6 +36,7 @@ if CUSTOMLIBPATH not in sys.path:
 #RobotArm: define robot arm object
 from RobotArm import *
 from Trajectory import *
+from CamSensor import *
 
 #############################################################
 #Variables
@@ -56,18 +57,6 @@ toolCamera = scene.objects["Tool.camera"]
 envCamera = scene.objects["Env.camera"]
 ####
 
-#############################################################
-#Functions
-#############################################################
-def poseRefresh():
-    """Fonction refreshing robot pose
-    """
-    global robot
-    robot.refresh()
-
-#############################################################
-#Program Initialisation
-#############################################################
 #Create a Robot object
 robot=RobotArm(ob,tcpPBone)
 #Create a trajectory
@@ -88,3 +77,41 @@ traj.closed=True
 
 #Load trajectory as robot routine trajectory
 robot.routineTrajectory=traj
+
+#Create a camera sensor
+camSensor=CamSensor(toolCamera)
+
+#vision check period
+#vision check is perform every visionPeriod frame
+visionPeriod=0 #Vision check every 30 frame
+
+#############################################################
+#Functions
+#############################################################
+def poseRefresh():
+    """Fonction refreshing robot pose
+    """
+    global robot
+    global camSensor
+    global visionPeriod
+    global traj
+
+    objectNpLocation=None
+
+    #Interruptions:
+    if visionPeriod<1:
+        pxLocation=camSensor.redDetect()
+        if pxLocation is not None:
+            objectNpLocation=camSensor.pixelWorkSpaceLocation(pxLocation)
+            redTraj=Trajectory()
+            location=np.array([0,5,6])
+            angle=np.array([0,3.14,0])
+            redTraj.addPlacement=(location,angle,None)
+            robot.routineTrajectory=redTraj
+        else:
+            robot.routineTrajectory=traj
+        visionPeriod=30
+    else:
+        visionPeriod-=1
+    robot.refresh()
+
